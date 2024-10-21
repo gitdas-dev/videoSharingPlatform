@@ -35,7 +35,6 @@ const Button = styled.button`
 
 const Comments = ({ videoId }) => {
   const [comments, setComments] = useState([]);
-  const { currentUser } = useSelector((state) => state.user);
   const [currComment, setCurrComment] = useState("");
 
   const handleComment = async (e) => {
@@ -45,7 +44,7 @@ const Comments = ({ videoId }) => {
       desc: currComment,
     });
     setCurrComment("");
-    location.reload()
+    location.reload();
   };
 
   useEffect(() => {

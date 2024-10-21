@@ -4,6 +4,7 @@ import Card from "../components/Card";
 import { api } from "../utils/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const Container = styled.div`
   display: flex;
   justify-content: flex-start;

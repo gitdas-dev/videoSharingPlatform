@@ -160,8 +160,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 </Link>
               )}
             </span>
-
-            {/* Implement logout button */}
           </span>
         </Wrapper>
       </Container>

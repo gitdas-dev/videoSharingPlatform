@@ -165,7 +165,6 @@ const Video = () => {
         progress: undefined,
         theme: "light",
       });
-      // Optionally dispatch an action to handle the error in the UI
     }
   };
 
@@ -184,34 +183,10 @@ const Video = () => {
         progress: undefined,
         theme: "light",
       });
-      // Optionally dispatch an action to handle the error in the UI
     }
   };
 
-  // const handleSub = async () => {
-  //   try {
-
-  //     currentUser?.others?.subscribedUsers?.includes(channel?._id)
-  //       ? await apiWithAuth.put(`/api/users/unsub/${channel?._id}`)
-  //       : await apiWithAuth.put(`/api/users/sub/${channel?._id}`)
-
-  //     dispatch(subscribe(channel._id));
-  //   } catch (error) {
-  //     toast.error("Server error! Try to sign in again.", {
-  //       position: "top-center",
-  //       autoClose: 5000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       theme: "light",
-  //     });
-  //   }
-  // };
-
   const handleSub = async () => {
-    
     try {
       if (!currentUser || !channel) {
         throw new Error("Current user or channel is not defined.");
@@ -227,9 +202,9 @@ const Video = () => {
           : `/api/users/sub/${channel._id}`
       );
 
-      dispatch(subscribe(channel._id)); // Ensure this is set up correctly
+      dispatch(subscribe(channel._id));
     } catch (error) {
-      console.error("Error occurred:", error); // Log the error
+      console.error("Error occurred:", error);
       toast.error("Server error! Try to sign in again.", {
         position: "top-center",
         autoClose: 5000,
@@ -306,11 +281,6 @@ const Video = () => {
                 <Description>{currentVideo?.desc}</Description>
               </ChannelDetail>
             </ChannelInfo>
-            {/* <Subscribe onClick={handleSub}>
-              {currentUser?.subscribedUsers?.includes(channel?._id)
-                ? "SUBSCRIBED"
-                : "SUBSCRIBE"}
-            </Subscribe> */}
             <Subscribe onClick={handleSub}>
               {currentUser &&
               currentUser?.others?.subscribedUsers &&

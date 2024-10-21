@@ -9,7 +9,7 @@ import {
 } from "firebase/storage";
 import app from "../firebase";
 import { useNavigate } from "react-router-dom";
-import { api, apiWithAuth } from "../utils/api";
+import { apiWithAuth } from "../utils/api";
 
 const Container = styled.div`
   width: 100%;
