@@ -78,7 +78,8 @@ const Signin = () => {
         name,
         password,
       });
-
+      console.log(res.data);
+      
       dispatch(loginSuccess(res.data));
       navigate("/");
     } catch {

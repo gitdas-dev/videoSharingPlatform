@@ -33,17 +33,17 @@ const connect = () => {
     })
 }
 
-app.use(cookieParser())
+// app.use(cookieParser())
 app.use(express.json())
-app.use(bodyParser.urlencoded({extended: true}))
+// app.use(bodyParser.urlencoded({extended: true}))
 // app.use(corb())
 
-app.use(session({
-    key: "Cookie",
-    secret: "123abc",
-    resave: false,
-    saveUninitialized: false
-}))
+// app.use(session({
+//     key: "Cookie",
+//     secret: "123abc",
+//     resave: false,
+//     saveUninitialized: false
+// }))
 
 app.use("/api/users", userRoutes)
 app.use("/api/videos", videoRoutes)

@@ -9,7 +9,7 @@ import {
 } from "firebase/storage";
 import app from "../firebase";
 import { useNavigate } from "react-router-dom";
-import { api } from "../utils/api";
+import { api, apiWithAuth } from "../utils/api";
 
 const Container = styled.div`
   width: 100%;
@@ -133,7 +133,7 @@ export const Upload = ({ setOpen }) => {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    const res = await api.post("/api/videos", { ...inputs, tags });
+    const res = await apiWithAuth.post("/api/videos", { ...inputs, tags });
     setOpen(false);
     res.status === 200 && navigate(`/video/${res.data._id}`);
   };

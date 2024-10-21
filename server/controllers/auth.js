@@ -27,14 +27,22 @@ export const signin = async (req, res, next) => {
 
         const { password, ...others } = user._doc;
         req.session.user = user
-        res
-          .cookie("access_token", token, {
-            httpOnly: true,
-            sameSite: 'none',
-            secure: true
-          })
-          .status(200)
-          .json(others);
+        // res
+        //   .cookie("access_token", token, {
+        //     httpOnly: true,
+        //     sameSite: 'none',
+        //     secure: true
+        //   })
+        //   .status(200)
+        //   .json(others);
+
+
+        res.status(200).json({
+          success: true,
+          message: "Signin succesfully!",
+          token,
+          others
+        })
         
       }else{
         res.status(403).json({
@@ -51,14 +59,21 @@ export const signin = async (req, res, next) => {
 
     const { password, ...others } = user._doc;
 
-    res
-      .cookie("access_token", token,  {
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true
+    // res
+    //   .cookie("access_token", token,  {
+    //     httpOnly: true,
+    //     sameSite: 'none',
+    //     secure: true
+    //   })
+    //   .status(200)
+    //   .json(others);
+
+      res.status(200).json({
+        success: true,
+        message: "Signin succesfully!",
+        token,
+        others
       })
-      .status(200)
-      .json(others);
   } catch (err) {
     next(err);
   }
@@ -70,15 +85,22 @@ export const googleAuth = async (req, res, next) => {
     const options = { expiresIn: '1h' };
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT, options);
+      const others = user._doc;
+      // res
+      //   .cookie("access_token", token, {
+      //     httpOnly: true,
+      //     sameSite: 'none',
+      //     secure: true
+      //   })
+      //   .status(200)
+      //   .json(user._doc);
 
-      res
-        .cookie("access_token", token, {
-          httpOnly: true,
-          sameSite: 'none',
-          secure: true
-        })
-        .status(200)
-        .json(user._doc);
+      res.status(200).json({
+        success: true,
+        message: "Signin succesfully!",
+        token,
+        others
+      })
     } else {
       const newUser = await new User({
         ...req.body,
@@ -88,13 +110,20 @@ export const googleAuth = async (req, res, next) => {
       const savedUser = await newUser.save();
       const token = jwt.sign({ id: savedUser._id }, process.env.JWT, options);
 
-      res
-        .cookie("access_token", token, {
-          sameSite: 'none',
-          secure: true
+      // res
+      //   .cookie("access_token", token, {
+      //     sameSite: 'none',
+      //     secure: true
+      //   })
+      //   .status(200)
+      //   .json(savedUser._doc);
+
+        res.status(200).json({
+          success: true,
+          message: "Signin succesfully!",
+          token,
+          others: savedUser._doc
         })
-        .status(200)
-        .json(savedUser._doc);
     }
   } catch (error) {
     next(error);

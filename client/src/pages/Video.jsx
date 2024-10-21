@@ -13,7 +13,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { subscribe } from "../redux/userSlice";
 import { Recommendation } from "../components/Recommendation";
-import { api } from "../utils/api";
+import { api, apiWithAuth } from "../utils/api";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -152,7 +152,7 @@ const Video = () => {
 
   const handleLike = async () => {
     try {
-      await api.put(`/api/users/like/${currentVideo?._id}`);
+      await apiWithAuth.put(`/api/users/like/${currentVideo?._id}`);
       dispatch(like(currentUser?._id));
     } catch (error) {
       toast.error("Server error! Try to sign in again.", {
@@ -171,7 +171,7 @@ const Video = () => {
 
   const handleDislike = async () => {
     try {
-      await api.put(`/api/users/dislike/${currentVideo?._id}`);
+      await apiWithAuth.put(`/api/users/dislike/${currentVideo?._id}`);
       dispatch(dislike(currentUser?._id));
     } catch (error) {
       toast.error("Server error! Try to sign in again.", {
@@ -188,14 +188,48 @@ const Video = () => {
     }
   };
 
-  const handleSub = async () => {
-    try {
-      currentUser.subscribedUsers.includes(channel?._id)
-        ? await api.put(`/api/users/unsub/${channel?._id}`)
-        : await api.put(`/api/users/sub/${channel?._id}`);
+  // const handleSub = async () => {
+  //   try {
 
-      dispatch(subscribe(channel?._id));
+  //     currentUser?.others?.subscribedUsers?.includes(channel?._id)
+  //       ? await apiWithAuth.put(`/api/users/unsub/${channel?._id}`)
+  //       : await apiWithAuth.put(`/api/users/sub/${channel?._id}`)
+
+  //     dispatch(subscribe(channel._id));
+  //   } catch (error) {
+  //     toast.error("Server error! Try to sign in again.", {
+  //       position: "top-center",
+  //       autoClose: 5000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "light",
+  //     });
+  //   }
+  // };
+
+  const handleSub = async () => {
+    
+    try {
+      if (!currentUser || !channel) {
+        throw new Error("Current user or channel is not defined.");
+      }
+
+      const isSubscribed = currentUser.others?.subscribedUsers?.includes(
+        channel._id
+      );
+
+      const response = await apiWithAuth.put(
+        isSubscribed
+          ? `/api/users/unsub/${channel._id}`
+          : `/api/users/sub/${channel._id}`
+      );
+
+      dispatch(subscribe(channel._id)); // Ensure this is set up correctly
     } catch (error) {
+      console.error("Error occurred:", error); // Log the error
       toast.error("Server error! Try to sign in again.", {
         position: "top-center",
         autoClose: 5000,
@@ -272,8 +306,16 @@ const Video = () => {
                 <Description>{currentVideo?.desc}</Description>
               </ChannelDetail>
             </ChannelInfo>
-            <Subscribe onClick={handleSub}>
+            {/* <Subscribe onClick={handleSub}>
               {currentUser?.subscribedUsers?.includes(channel?._id)
+                ? "SUBSCRIBED"
+                : "SUBSCRIBE"}
+            </Subscribe> */}
+            <Subscribe onClick={handleSub}>
+              {currentUser &&
+              currentUser?.others?.subscribedUsers &&
+              channel &&
+              currentUser?.others?.subscribedUsers?.includes(channel?._id)
                 ? "SUBSCRIBED"
                 : "SUBSCRIBE"}
             </Subscribe>

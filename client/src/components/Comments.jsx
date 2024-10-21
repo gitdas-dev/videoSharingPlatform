@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Comment from "./Comment";
 import { useSelector } from "react-redux";
-import { api } from "../utils/api";
+import { api, apiWithAuth } from "../utils/api";
 
 const Container = styled.div``;
 const Avatar = styled.img`
@@ -40,22 +40,23 @@ const Comments = ({ videoId }) => {
 
   const handleComment = async (e) => {
     e.preventDefault();
-    await api.post(`/api/comments/`, {
+    await apiWithAuth.post(`/api/comments/`, {
       videoId,
       desc: currComment,
     });
     setCurrComment("");
+    location.reload()
   };
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await api.get(`/api/comments/${videoId}`);
+        const res = await apiWithAuth.get(`/api/comments/${videoId}`);
         setComments(res.data);
       } catch (error) {}
     };
     fetchComments();
-  }, [handleComment]);
+  }, []);
 
   return (
     <Container>
