@@ -13,7 +13,7 @@ dotenv.config();
 
 
 app.use(cors({
-  origin: 'https://video-sharing-platform-frontend-ocmogtfrl.vercel.app', // Allow only your frontend
+  origin: '*', // Allow only your frontend
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: false, // If your frontend makes requests with credentials (cookies, etc.)
 }));
@@ -21,7 +21,7 @@ app.use(cors({
 
 const connect = () => {
   mongoose
-    .connect(process.env.MONGO_URL)
+    .connect(mongodb+srv://mandeepdas321:UQ8cq7LkSElpYnSa@cluster0.8bvta5c.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0)
     .then(() => {
       console.log("Connected to DB!");
     })
@@ -47,7 +47,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(3000, () => {
   connect();
   console.log("Connected!");
 });
