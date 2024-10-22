@@ -15,7 +15,7 @@ dotenv.config();
 app.use(cors({
   origin: 'https://video-sharing-platform-frontend-ocmogtfrl.vercel.app', // Allow only your frontend
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true, // If your frontend makes requests with credentials (cookies, etc.)
+  credentials: false, // If your frontend makes requests with credentials (cookies, etc.)
 }));
 
 
