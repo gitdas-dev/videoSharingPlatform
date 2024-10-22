@@ -11,7 +11,7 @@ import cors from "cors";
 const app = express();
 dotenv.config();
 const corsOptions = {
-  origin: process.env.CLIENT_BASE_URL,
+  origin: "https://video-sharing-platform-frontend-seven.vercel.app",
   credentials: true,
 };
 
