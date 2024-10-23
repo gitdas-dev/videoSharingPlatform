@@ -13,10 +13,19 @@ dotenv.config();
 
 
 app.use(cors({
-  origin: '*', 
+  origin: 'https://video-sharing-platform-frontend-6qx90wz6a.vercel.app', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: false, 
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+
+app.options('*', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://video-sharing-platform-frontend-6qx90wz6a.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Max-Age', '86400'); 
+  res.sendStatus(200);  
+});
 
 
 const connect = () => {
