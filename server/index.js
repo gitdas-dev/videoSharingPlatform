@@ -13,15 +13,15 @@ dotenv.config();
 
 
 app.use(cors({
-  origin: '*', // Allow only your frontend
+  origin: '*', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: false, // If your frontend makes requests with credentials (cookies, etc.)
+  credentials: false, 
 }));
 
 
 const connect = () => {
   mongoose
-    .connect(mongodb+srv://mandeepdas321:UQ8cq7LkSElpYnSa@cluster0.8bvta5c.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0)
+    .connect("mongodb+srv://mandeepdas321:UQ8cq7LkSElpYnSa@cluster0.8bvta5c.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
     .then(() => {
       console.log("Connected to DB!");
     })
