@@ -13,7 +13,7 @@ dotenv.config();
 
 
 app.use(cors({
-  origin: 'https://video-sharing-platform-frontend-6qx90wz6a.vercel.app', 
+  origin: 'https://video-sharing-platform-frontend-seven.vercel.app', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
