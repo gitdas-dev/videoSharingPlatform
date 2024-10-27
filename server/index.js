@@ -5,7 +5,6 @@ import videoRoutes from "./routes/videos.js";
 import commentRoutes from "./routes/comments.js";
 import authRoutes from "./routes/auth.js";
 import dotenv from "dotenv";
-import cors from "cors";
 
 
 const app = express();
@@ -13,10 +12,13 @@ dotenv.config();
 
 
 
-app.use(cors({
-  origin: 'https://video-sharing-platform-frontend-seven.vercel.app', 
-  credentials: true, 
-}));
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://video-sharing-platform-frontend-seven.vercel.app'); // Allow your frontend
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials like cookies
+  next();
+});
 
 
 app.options('*', (req, res) => {
