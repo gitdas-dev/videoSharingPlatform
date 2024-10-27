@@ -2,7 +2,8 @@ import axios from "axios"
 
 
 export const api = axios.create({
-    baseURL: "https://video-sharing-platformspi2.vercel.app"
+    baseURL: "https://video-sharing-platformspi2.vercel.app",
+    withCredentials: false
 });
 
 export const apiWithAuth = axios.create({
