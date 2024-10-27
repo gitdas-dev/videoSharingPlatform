@@ -5,30 +5,29 @@ import videoRoutes from "./routes/videos.js";
 import commentRoutes from "./routes/comments.js";
 import authRoutes from "./routes/auth.js";
 import dotenv from "dotenv";
-
+import cors from "cors";
 
 const app = express();
-dotenv.config();
+
+const corsOptions = {
+  origin: 'https://video-sharing-platform-frontend-seven.vercel.app',
+  methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://video-sharing-platform-frontend-seven.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  // res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  // res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials like cookies
-  next();
-});
-
-
-app.options('*', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://video-sharing-platform-frontend-seven.vercel.app'); 
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Max-Age', '86400');
-  res.sendStatus(200);  
-});
+// app.options('*', (req, res) => {
+//   res.setHeader('Access-Control-Allow-Origin', 'https://video-sharing-platform-frontend-seven.vercel.app'); 
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//   res.setHeader('Access-Control-Allow-Credentials', 'true');
+//   res.setHeader('Access-Control-Max-Age', '86400');
+//   res.sendStatus(200);  
+// });
 
 
 
